@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+client_secrets.py
 build/
 develop-eggs/
 dist/
