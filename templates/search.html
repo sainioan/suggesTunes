@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Search</title>
+</head>
+<body>
+    <nav class="navbar-default">
+        <div >
+            <form action="/search" method="post">
+                <h3 style="background-color: #EFFBFB">Search by Song Title</h3>
+                Song Title: <input type="text" name="name" placeholder="* required">
+                    <input type="submit" value="Submit">
+{#                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>#}
+            </form>
+        </div>
+    </nav>
+</body>
+</html>
