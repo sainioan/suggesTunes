@@ -6,11 +6,11 @@ from jedi.api.refactoring import inline
 from sklearn.neighbors import NearestNeighbors
 from ast import literal_eval
 import string
-from PIL import Image
-import PIL.ImageOps
-import matplotlib.pyplot as plt
+# from PIL import Image
+# import PIL.ImageOps
+# import matplotlib.pyplot as plt
 
-from wordcloud import WordCloud
+# from wordcloud import WordCloud
 
 
 #%%
@@ -26,22 +26,22 @@ df.head()
 
 #%%
 
-im = Image.open("guitar.png")
-mask = np.array(im)
-wordcloud = WordCloud(mask=mask, width = 800, height = 800,
-            background_color ='white').generate(' '.join(df['genres']))
+# im = Image.open("guitar.png")
+# mask = np.array(im)
+# wordcloud = WordCloud(mask=mask, width = 800, height = 800,
+#             background_color ='white').generate(' '.join(df['genres']))
 
-plt.imshow(wordcloud, interpolation="bilinear")
-plt.axis('off')
-plt.show()
+# plt.imshow(wordcloud, interpolation="bilinear")
+# plt.axis('off')
+# plt.show()
 
 
-wordcloud2 = WordCloud(width = 800, height = 800,
-            background_color ='white').generate(' '.join(df['name']))
+# wordcloud2 = WordCloud(width = 800, height = 800,
+#             background_color ='white').generate(' '.join(df['name']))
 
-plt.imshow(wordcloud2, interpolation="bilinear")
-plt.axis('off')
-plt.show()
+# plt.imshow(wordcloud2, interpolation="bilinear")
+# plt.axis('off')
+# plt.show()
 
 
 
