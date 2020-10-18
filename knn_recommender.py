@@ -27,27 +27,6 @@ class Recommender:
         self.knn = NearestNeighbors(n_neighbors=50, algorithm='ball_tree')
         self.knn.fit(self.df_data.values)
 
-    # def index_input():
-        # good_input = 0
-        # ind = input('Enter the index value of the required song: ')
-        # while not good_input:
-            # if not ind.isdigit():
-                # ind = input('Index has to be a number, please try again: ')
-                # continue
-            # ind = int(ind)
-            # if not ind <= df['id'].count():
-                # ind = input('Index has to be smaller than 169910. Please try again: ')
-                # continue
-            # good_input = 1
-        # return ind
-
-
-    # def duration_input():
-        # duration = input('Enter duration of playlist in minutes: ')
-        # while not duration.isdigit():
-            # duration = input('Duration has to be a number (Leave out the word minutes). Please try again: ')
-        # return duration
-
     def matching_genres(genres1, genres2):
         genres1 = literal_eval(genres1)
         matches = list(set(genres1) & set(genres2))
@@ -90,12 +69,8 @@ class Recommender:
 
         return found
 
-    def find_id(self, index):
+    def find_neighbors(self, index, duration):
         id = self.df['id'].loc[index]
-        return id
-
-
-    def find_neighbors(self, id, duration):
         songs = recommend(id, self.knn, duration)
         return songs
 
