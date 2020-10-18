@@ -18,7 +18,7 @@ def search():
         # TODO user clicks song in list to return index of the track -> find id of the track 
         duration = str(request.form.get("duration"))
         # TODO return neighbors (recommendations) in new page
-    return found
+    return duration
 
 
 @app.route("/")
