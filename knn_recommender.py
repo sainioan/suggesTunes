@@ -20,13 +20,20 @@ app = Flask(__name__)
 
 # %%
 
+
+def standardize(s):
+    s = "".join([i.lower() for i in s if i not in frozenset(string.punctuation)])
+    return s
+
+
 @app.route("/search", methods=["GET", "POST"])
 def search():
     if request.method == "GET":
         return render_template("search.html")
     if request.method == "POST":
         name= str(request.form.get("name"))
-# name = input('Enter song title: ')
+
+        name = standardize(name)
     return name
 
 
@@ -39,28 +46,6 @@ if __name__ == "__main__":
     app.run(debug=True)
 df = pd.read_csv("songs_w_genres_v4.csv")
 df.head()
-
-# %%
-
-# im = Image.open("guitar.png")
-# mask = np.array(im)
-# wordcloud = WordCloud(mask=mask, width = 800, height = 800,
-#             background_color ='white').generate(' '.join(df['genres']))
-
-# plt.imshow(wordcloud, interpolation="bilinear")
-# plt.axis('off')
-# plt.show()
-
-
-# wordcloud2 = WordCloud(width = 800, height = 800,
-#             background_color ='white').generate(' '.join(df['name']))
-
-# plt.imshow(wordcloud2, interpolation="bilinear")
-# plt.axis('off')
-# plt.show()
-
-
-# %%
 
 df_data = df.drop(['artists', 'duration_ms', 'explicit', 'mode', 'name', 'popularity', 'release_date', 'year', 'genres',
                    'standardized_name'], axis=1)
