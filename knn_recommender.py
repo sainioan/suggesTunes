@@ -32,9 +32,9 @@ def search():
         return render_template("search.html")
     if request.method == "POST":
         name= str(request.form.get("name"))
-
         name = standardize(name)
-    return name
+        duration = str(request.form.get("duration"))
+    return duration
 
 
 @app.route("/")
