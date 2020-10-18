@@ -18,7 +18,7 @@
     <script src=“https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js”></script> (edited)
 
 
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
@@ -30,15 +30,6 @@
 
 </nav>
      <div >
-{#            <form action="/search" method="post">#}
-{#                <h3 style="background-color: #EFFBFB">Search by Song Title</h3>#}
-{#                Song Title: <input type="text" name="name" placeholder="* required">#}
-{#                <p></p>#}
-{#                Playlist length: <input type="text" duration="duration" placeholder="* in minutes">#}
-{#                    <input type="submit" value="Submit">#}
-{#                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>#}
-{#            </form>#}
-                 <div >
             <form action="/search" method="post">
                 <h3 style="background-color: #EFFBFB">Search by Song Title</h3>
                             <label><b>Song Title</b></label><br>
@@ -46,15 +37,10 @@
                 <p>
                     <label><b>Playlist length</b></label><br>
                     <input type="text" placeholder="* length in minutes" name="duration">
-                <p>
-
-
+                </p>
                 <button type="submit">Submit</button><br>
                 <p></p>
                 <br>
-            </div>
         </div>
-{#  <a href="/search">Create a Playlist</a>#}
-
 </body>
 </html>

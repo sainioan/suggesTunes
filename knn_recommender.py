@@ -26,10 +26,9 @@ def standardize(s):
     return s
 
 
-@app.route("/search", methods=["GET", "POST"])
+@app.route("/search", methods=["POST"])
 def search():
-    if request.method == "GET":
-        return render_template("search.html")
+
     if request.method == "POST":
         name= str(request.form.get("name"))
         name = standardize(name)
