@@ -24,6 +24,7 @@ def search():
 @app.route('/api', methods=['POST'])
 def find_test():
     name = request.values.get('input')
+    name = standardize(name)
     found = reco.search_name(name)
     # TODO format results in a better way
     result = found.to_json(orient="index")
