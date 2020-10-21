@@ -1,5 +1,6 @@
 from knn_recommender import Recommender
 from flask import Flask, render_template, request
+from ast import literal_eval
 import string
 import json
 
@@ -25,10 +26,24 @@ def search():
 def find_test():
     name = request.values.get('input')
     name = standardize(name)
+    
     found = reco.search_name(name)
-    # TODO format results in a better way
-    result = found.to_json(orient="index")
-    return result
+
+    indices = found.index.values.tolist()
+    vals = found.values.tolist()
+    arr = dict()
+    for i in range(len(found.values)):
+        name = vals[i][0]
+        artists = vals[i][1]
+        index = indices[i]
+
+        artists = literal_eval(artists)
+        artists_str = ""
+        for artist in artists:
+            artists_str = artists_str + artist + ", "
+        artists_str = artists_str[:-2]
+        arr[i] = [name, artists_str, index]
+    return arr
     
 @app.route("/test")
 def test():
