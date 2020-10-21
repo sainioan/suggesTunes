@@ -26,7 +26,7 @@
     results = JSON.parse(target.responseText)
     try {
       var element = document.getElementById("results")
-    element.parentNode.removeChild(element)
+      element.parentNode.removeChild(element)
     } catch {}
     
     var results_div = document.createElement("div")
@@ -41,10 +41,19 @@
       parent.appendChild(results_div)
 
       var newDiv = document.createElement("div")
-      var newContent = document.createTextNode(song)
-      newContent["id"] = index
-      newDiv.appendChild(newContent)
-      document.getElementById('results').appendChild(newDiv)
+      var newButton = document.createElement("button")
+      newButton["id"] = index
+      newButton["value"] = song
+      newButton.innerHTML = song
+      
+      newButton.addEventListener('click', ({target}) => {
+        // Add link functionality here!
+        console.log(target.id)
+        console.log(target.value)
+      })
+
+      newDiv.appendChild(newButton)
+      results_div.appendChild(newDiv)
     }
   }
 
