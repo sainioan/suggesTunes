@@ -67,7 +67,7 @@ class Recommender:
                 str.contains(name)).dropna().sort_values(ascending=False, by="popularity")
             found = found[['name', 'artists']]
 
-        return found
+        return found.head(5)
 
     def find_neighbors(self, index, duration):
         id = self.df['id'].loc[index]
