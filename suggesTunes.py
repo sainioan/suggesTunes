@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from ast import literal_eval
 import string
 import json
+import re
 
 app = Flask(__name__)
 
@@ -27,7 +28,9 @@ def search():
 
         for i in range(len(songs.values)):
             songs_arr[i] = {}
-            songs_arr[i]['name'] = vals[i][0]
+            name = vals[i][0]
+            name = re.sub('\"', '\\\"', name)
+            songs_arr[i]['name'] = name
             songs_arr[i]['duration'] = vals[i][2]
             
             artists = vals[i][1]
