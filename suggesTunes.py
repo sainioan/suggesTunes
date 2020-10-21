@@ -74,4 +74,5 @@ if __name__ == "__main__":
     # Use reco.search_name(<title of song>) to return DataFrame with index, title of song and artists.
     # Use reco.find_neighbors(<index>, <duration>) to return DataFrame of song recommendations with all columns.
     reco = Recommender()
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)

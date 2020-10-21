@@ -1,1 +1,1 @@
-worker: python suggesTunes.py
+web: python suggesTunes.py
