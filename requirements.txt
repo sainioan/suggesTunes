@@ -73,12 +73,7 @@ folium==0.11.0
 fsspec==0.5.2
 future==0.17.1
 gast==0.4.0
-GDAL==2.3.3
 gensim==3.8.3
-geographiclib==1.50
-geopandas==0.6.1
-geoplot==0.4.1
-geopy==2.0.0
 gevent==1.4.0
 glob2==0.7
 gmpy2==2.0.8
