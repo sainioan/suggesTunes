@@ -33,7 +33,6 @@ botocore==1.17.60
 Bottleneck==1.2.1
 branca==0.4.1
 cachetools==4.1.1
-Cartopy==0.18.0
 catalogue==1.0.0
 certifi==2019.9.11
 cffi==1.12.3
