@@ -1,1 +1,1 @@
-web: gunicorn suggesTunes.py --log-file -
+web: python suggesTunes.py
