@@ -36,7 +36,7 @@ class Recommender:
         query = self.df_data.loc[id].to_numpy().reshape(1, -1)
         distances, indices = model.kneighbors(query, n_neighbors = self.neighbors)
 
-        songs = self.df.loc[indices[0]].where(self.df['id'] != id).dropna()
+        songs = self.df.loc[indices[0]].dropna()
 
         songs = songs.drop_duplicates(subset=['name', 'artists'])
 
