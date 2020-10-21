@@ -7,7 +7,7 @@
 }
 
 @media only screen and (max-device-width: 480px) {
-    /* define mobile specific styles come here */
+    define mobile specific styles come here 
     .add-margin-top {
         margin-top: 20%;
     }
@@ -17,7 +17,7 @@
     }
 }
 
-.add-margin-bottom {
+ .add-margin-bottom {
     margin-bottom: 5%;
 }
 
@@ -31,7 +31,35 @@ body {
     text-align: center;
     background-color: rgb(242, 243, 244);
 
+} 
+
+.song_div {
+    border: #1DB954;
+    border-width: 1px;
+    border-radius: 16px;
+    border-style: solid;
+    height: 3em;
+    justify-content: center
 }
+
+.name_div {
+    float: left;
+    width: 33%;
+    justify-content: center
+}
+
+.artists_div {
+    float: left;
+    width: 33%;
+    justify-content: center
+}
+
+.duration_div {
+    float: left;
+    width: 33%;
+    justify-content: center
+}
+
 
 /* ===================================== Homepage styles ======================================== */
 .navbar-default {
@@ -44,14 +72,14 @@ nav .navbar-brand {
     font-size: 15px;
 }
 
-/*change default hover on links*/
+change default hover on links*/
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus,
 .navbar-default .navbar-brand:hover {
     color: #2E3134;
-}
+} 
 
-/*change default active links*/
+change default active links
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:hover {
