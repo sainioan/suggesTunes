@@ -1,46 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-     <link rel='stylesheet' href="../static/css/base.css">
-    <meta charset="UTF-8">
-    <link href=“https://fonts.googleapis.com/icon?family=Material+Icons”
-          rel=“stylesheet”>
-    <link rel=“shortcut icon” href=“data:image/x-icon;,” type=“image/x-icon”>
-    <link rel=“icon” href=“data:;base64,iVBORw0KGgo=“>
-    <link href=‘//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext’ rel=‘stylesheet’ type=‘text/css’>
-    <link rel=“stylesheet”
-    <meta name=“viewport” content=“width=device-width, initial-scale=1, shrink-to-fit=yes”>
-    <!-- Bootstrap CSS -->
-    <link rel=“stylesheet” href=“https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css”
-          integrity=“sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T”
-          crossorigin=“anonymous”>
-    <link href=“https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css” rel=“stylesheet”/>
-    <script src=“https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js”></script> (edited)
+    <head>
+        <link rel='stylesheet' href="../static/css/base.css">
+        <meta charset="UTF-8">
+        <link href=“https://fonts.googleapis.com/icon?family=Material+Icons”
+            rel=“stylesheet”>
+        <link rel=“shortcut icon” href=“data:image/x-icon;,” type=“image/x-icon”>
+        <link rel=“icon” href=“data:;base64,iVBORw0KGgo=“>
+        <link href=‘//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext’ rel=‘stylesheet’ type=‘text/css’>
+        <link rel=“stylesheet”>
+        <meta name=“viewport” content=“width=device-width, initial-scale=1, shrink-to-fit=yes”>
+        <!-- Bootstrap CSS -->
+        <link rel=“stylesheet” href=“https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css”
+            integrity=“sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T”
+            crossorigin=“anonymous”>
+        <link href=“https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css” rel=“stylesheet”/>
+        <script src=“https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js”></script>
+        <title>suggestTunes</title>
+    </head>
+    <body>
+        <div>
+            <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
+                <div class="header">
+                    <H2> Welcome to suggestTunes</H2>
+                    <div class="content"><img src="../static/images/genre_guitar.png" style="width:350px;height:250px;" alt="">
+                    </div>
+                </div>
+    
+            </nav>
 
-
-    <title>Home</title>
-</head>
-<body>
-<nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
-    <div class="header">
-        <H2> Welcome to suggestTunes</H2>
-        <div class="content"><img src="../static/images/genre_guitar.png" style="width:350px;height:250px;" alt="">
-        </div>
-    </div>
-
-</nav>
-     <div >
-            <form action="/search" method="post">
+            <form id="search" action="results" method="post">
                 <h3 style="background-color: #EFFBFB">Search by Song Title</h3>
-                            <label><b>Song Title</b></label><br>
-                <input type="text" placeholder="* required" name="name">
-                <p>
+                <div>
                     <label><b>Playlist length</b></label><br>
-                    <input type="text" placeholder="* length in minutes" name="duration">
-                </p>
-                <button type="submit">Submit</button><br>
-                <p></p>
-                <br>
+                    <input type="number" value=60 name="duration" autocomplete="off">
+                </div>
+                <div>
+                    <input type="text" placeholder="Enter Track name" name="name" autocomplete="off" id="search_word">
+                </div>
+                <div>
+                    <input type="hidden" id='button_values'>
+                </div>
+                <div id="results"></div>
+            </form>
         </div>
-</body>
+        <script>
+            const API_URL = '/api'
+            const input = document.getElementById('search_word')
+            
+            const handleResponse = ({ target }) => {
+                results = JSON.parse(target.responseText)
+                try {
+                var element = document.getElementById("results")
+                element.parentNode.removeChild(element)
+                } catch {}
+                
+                var results_div = document.createElement("div")
+                results_div["id"] = "results"
+            
+                for (const result of Object.entries(results)) {
+                const data = result[1]
+                const song = "" + data[0] + " - " + data[1]
+                const index = data[2]
+            
+                var parent = document.getElementById('search')
+                parent.appendChild(results_div)
+            
+                var newDiv = document.createElement("div")
+                var newButton = document.createElement("input")
+                newButton['type'] = "button"
+                newButton['id'] = index
+                newButton['value'] = song
+                newButton.innerHTML = song
+                
+                newButton.addEventListener('click', ({target}) => {
+                    button_values = document.getElementById("button_values")
+                    button_values['name'] = "index"
+                    button_values['value'] = target.id
+                    form = document.getElementById("search")
+                    form.submit()
+                })
+            
+                newDiv.appendChild(newButton)
+                results_div.appendChild(newDiv)
+                }
+            }
+            
+            const debounce = function (func, delay) {
+                try {
+                clearTimeout(timer)
+                } catch {}
+                timer = setTimeout(func, delay)
+            }
+            
+            const makeAPIcall = (target) => () => {
+                const xhr = new XMLHttpRequest()
+                const data = new FormData()
+            
+                data.append('input', target.value)
+                xhr.addEventListener('load', handleResponse)
+                xhr.open('POST', API_URL)
+                xhr.send(data)
+            }
+            
+            input.addEventListener('keyup', function ({ target }) {
+                debounce(makeAPIcall(target), 200)
+            })
+        </script>
+    </body>
 </html>

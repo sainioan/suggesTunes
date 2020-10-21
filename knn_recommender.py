@@ -27,14 +27,14 @@ class Recommender:
         self.knn = NearestNeighbors(n_neighbors=50, algorithm='ball_tree')
         self.knn.fit(self.df_data.values)
 
-    def matching_genres(genres1, genres2):
+    def matching_genres(self, genres1, genres2):
         genres1 = literal_eval(genres1)
         matches = list(set(genres1) & set(genres2))
         return len(matches) > 0
 
-    def recommend(id, model, duration):
+    def recommend(self, id, model, duration):
         query = self.df_data.loc[id].to_numpy().reshape(1, -1)
-        distances, indices = model.kneighbors(query, n_neighbors=neighbors)
+        distances, indices = model.kneighbors(query, n_neighbors = self.neighbors)
 
         songs = self.df.loc[indices[0]].where(self.df['id'] != id).dropna()
 
@@ -44,15 +44,15 @@ class Recommender:
         genres = literal_eval(searched['genres'].values[0])
 
         if len(genres) > 0:
-            songs = songs[songs['genres'].apply(matching_genres, args=([genres]))]
+            songs = songs[songs['genres'].apply(self.matching_genres, args=([genres]))]
 
         duration *= 60000  # convert to milliseconds
-        duration = duration if duration < max_duration else max_duration
+        duration = duration if duration < self.max_duration else self.max_duration
 
         count = songs[songs['duration_ms'].cumsum() < duration]['id'].count()
         songs = songs.head(count + 1)
 
-        print(songs[['name', 'artists']])
+        # print(songs[['name', 'artists']])
 
         return songs
 
@@ -71,7 +71,7 @@ class Recommender:
 
     def find_neighbors(self, index, duration):
         id = self.df['id'].loc[index]
-        songs = recommend(id, self.knn, duration)
+        songs = self.recommend(id, self.knn, duration)
         return songs
 
     

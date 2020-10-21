@@ -14,13 +14,19 @@ def standardize(s):
 def index():
     return render_template("home.html")
 
-@app.route("/search", methods=["POST"])
+@app.route("/results", methods=["POST"])
 def search():
     if request.method == "POST":
-        # TODO user clicks song in list to return index of the track 
-        duration = str(request.form.get("duration"))
-        # TODO return neighbors (recommendations) in new page
-    return duration
+        songs_arr = dict()
+        index = int(request.form.get("index"))
+        duration = int(request.form.get("duration"))
+        songs = reco.find_neighbors(index, duration)
+        vals = songs.values.tolist()
+        for i in range(len(songs.values)):
+            print(songs['name'])
+            break
+            songs_arr[i] = vals[i]
+        return render_template("results.html", songs_arr=songs_arr)
 
 @app.route('/api', methods=['POST'])
 def find_test():
