@@ -1,12 +1,54 @@
 <!DOCTYPE html>
- <link rel='stylesheet' href="../static/css/base.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Results</title>
+  <meta charset="UTF-8">
+  <title>suggesTunes - Results</title>
 </head>
+
 <body>
   <h1>Your Recommendations</h1>
+  <div id="results"></div>
+  <script>
+    var songs = JSON.parse('{{ songs_arr | tojson }}')
+    var i = 0
+    for (var tmp in songs) {
+      song = songs[i]
+      var song_div = document.createElement("div")
+      var results_div = document.getElementById("results")
 
+      var name_elem = document.createTextNode(song['name'])
+      var name_div = document.createElement("div")
+
+      var artists_elem = document.createTextNode(song['artists'])
+      var artists_div = document.createElement("div")
+
+      var duration = parseInt(song['duration'] / (1000 * 60).toFixed(1))
+      var duration_elem = document.createTextNode(duration + " Min")
+      var duration_div = document.createElement("div")
+
+      name_div.appendChild(name_elem)
+      name_div.classList.add("name_div")
+      artists_div.appendChild(artists_elem)
+      artists_div.classList.add("artists_div")
+      duration_div.appendChild(duration_elem)
+      duration_div.classList.add("duration_div")
+
+      song_div.appendChild(name_div)
+      song_div.appendChild(artists_div)
+      song_div.appendChild(duration_div)
+      song_div.classList.add("song_div")
+
+      results_div.appendChild(song_div)
+      i++
+    }
+
+    function timeConversion(millisec) {
+      var minutes = (millisec / (1000 * 60)).toFixed(1);
+      return minutes + " Min";
+    }
+  </script>
 </body>
+
 </html>

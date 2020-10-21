@@ -17,15 +17,26 @@ def index():
 @app.route("/results", methods=["POST"])
 def search():
     if request.method == "POST":
-        songs_arr = dict()
         index = int(request.form.get("index"))
         duration = int(request.form.get("duration"))
         songs = reco.find_neighbors(index, duration)
-        vals = songs.values.tolist()
+
+        songs_arr = dict()
+
+        vals = songs[['name', 'artists', 'duration_ms']].values.tolist()
+
         for i in range(len(songs.values)):
-            print(songs['name'])
-            break
-            songs_arr[i] = vals[i]
+            songs_arr[i] = {}
+            songs_arr[i]['name'] = vals[i][0]
+            songs_arr[i]['duration'] = vals[i][2]
+            
+            artists = vals[i][1]
+            artists = literal_eval(artists)
+            artists_str = ""
+            for artist in artists:
+                artists_str = artists_str + artist + ", "
+            artists_str = artists_str[:-2]
+            songs_arr[i]['artists'] = artists_str
         return render_template("results.html", songs_arr=songs_arr)
 
 @app.route('/api', methods=['POST'])
