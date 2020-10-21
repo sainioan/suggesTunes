@@ -41,7 +41,7 @@ Click==7.0
 click-plugins==1.1.1
 cligj==0.5.0
 cloudpickle==1.2.2
-clyent==1.2.2
+
 colorama==0.4.1
 colorful==0.5.4
 dask==2.5.2
@@ -65,10 +65,7 @@ Flask-WTF==0.14.3
 folium==0.11.0
 fsspec==0.5.2
 future==0.17.1
-gast==0.4.0
-gensim==3.8.3
-geographiclib==1.50
-geopy==2.0.0
+
 gevent==1.4.0
 glob2==0.7
 gmpy2==2.0.8
