@@ -9,12 +9,22 @@
 
 <body>
   <h1>Your Recommendations</h1>
+  <div id="duration">
+    <h4>Total duration of playlist</h4>
+  </div>
   <div id="results"></div>
+  
   <script>
+    function timeConversion(millisec) {
+      var minutes = (millisec / (1000 * 60)).toFixed(1);
+      return minutes + " Min";
+    }
+
     var songs = JSON.parse('{{ songs_arr | tojson }}')
     var i = 0
+    var total_duration = 0
     for (var tmp in songs) {
-      song = songs[i]
+      var song = songs[i]
       var song_div = document.createElement("div")
       var results_div = document.getElementById("results")
 
@@ -24,9 +34,11 @@
       var artists_elem = document.createTextNode(song['artists'])
       var artists_div = document.createElement("div")
 
-      var duration = parseInt(song['duration'] / (1000 * 60).toFixed(1))
-      var duration_elem = document.createTextNode(duration + " Min")
+      var duration = timeConversion(parseInt(song['duration']))
+      var duration_elem = document.createTextNode(duration)
       var duration_div = document.createElement("div")
+
+      total_duration += song['duration']
 
       name_div.appendChild(name_elem)
       name_div.classList.add("name_div")
@@ -44,10 +56,11 @@
       i++
     }
 
-    function timeConversion(millisec) {
-      var minutes = (millisec / (1000 * 60)).toFixed(1);
-      return minutes + " Min";
-    }
+    total_duration = timeConversion(total_duration)
+    total_duration_elem = document.createTextNode(total_duration)
+    total_duration_div = document.getElementById("duration")
+    total_duration_div.appendChild(total_duration_elem)
+    
   </script>
 </body>
 
