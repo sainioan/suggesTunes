@@ -27,7 +27,7 @@ class Youtube:
         # matching videos, channels, and playlists.
             for search_result in search_response.get('items', []):
                 if search_result['id']['kind'] == 'youtube#video':
-                    videos.append('%s' % ("https://www.youtube.com/embed" + search_result['id']['videoId']))
+                    videos.append('%s' % ("https://www.youtube.com/embed/" + search_result['id']['videoId']))
 
             return videos[0]
         except HttpError as e:
