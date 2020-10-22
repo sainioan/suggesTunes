@@ -20,7 +20,6 @@
       return minutes + " Min";
     }
     var youtube_embeds = JSON.parse('{{ youtube_arr | tojson }}')
-    console.log(youtube_embeds)
     var songs = JSON.parse('{{ songs_arr | tojson }}')
     var i = 0
     var total_duration = 0
@@ -42,7 +41,6 @@
       var youtube_div = document.createElement("div")
       var youtube_embed = document.createElement('iframe')
       if (youtube_embeds[i] != "") {
-        console.log(youtube_embeds[i])
         youtube_embed.setAttribute('src', youtube_embeds[i])
       }  else {
         youtube_embed.setAttribute('src', "https://www.youtube.com/embed/tgbNymZ7vqY")
