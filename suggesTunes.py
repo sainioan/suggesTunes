@@ -46,7 +46,7 @@ def search():
             artists_str = re.sub('\"', '\\\"', artists_str)
             songs_arr[i]['artists'] = artists_str
 
-            if i <1:
+            if i < 4:
                 ytsearch = youtube.search(name + " - " + artists[0])
                 youtube_arr[i] = ytsearch
             else:
