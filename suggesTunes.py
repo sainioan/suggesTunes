@@ -2,6 +2,8 @@ from knn_recommender import Recommender
 from youtube import Youtube
 from flask import Flask, render_template, request
 from ast import literal_eval
+from os import environ
+from dotenv import load_dotenv
 import string
 import json
 import re
@@ -80,10 +82,12 @@ def test():
 
 
 if __name__ == "__main__":
+    load_dotenv()
     # Use reco.search_name(<title of song>) to return DataFrame with index, title of song and artists.
     # Use reco.find_neighbors(<index>, <duration>) to return DataFrame of song recommendations with all columns.
     reco = Recommender()
     youtube = Youtube()
-    from os import environ
-    app.run(debug=False, host='0.0.0.0', port=environ.get("PORT", 5000))
-    # app.run(debug=True, port=environ.get("PORT", 5000))
+    if 'DYNO' in environ:
+        app.run(debug=False, host='0.0.0.0', port=getenv("PORT", 5000))
+    else:
+        app.run(debug=True, port=getenv("PORT", 5000))

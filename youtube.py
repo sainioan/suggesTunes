@@ -1,10 +1,10 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-import client_secrets
+import os
 
 class Youtube:
     def __init__(self):
-        DEVELOPER_KEY = client_secrets.API_KEY
+        DEVELOPER_KEY = os.getenv("API_KEY")
         YOUTUBE_API_SERVICE_NAME = 'youtube'
         YOUTUBE_API_VERSION = 'v3'
         self.youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
