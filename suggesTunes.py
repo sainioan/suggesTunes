@@ -1,4 +1,5 @@
 from knn_recommender import Recommender
+from youtube import Youtube
 from flask import Flask, render_template, request
 from ast import literal_eval
 import string
@@ -23,6 +24,7 @@ def search():
         songs = reco.find_neighbors(index, duration)
 
         songs_arr = dict()
+        youtube_arr = dict()
 
         vals = songs[['name', 'artists', 'duration_ms']].values.tolist()
 
@@ -41,7 +43,13 @@ def search():
             artists_str = artists_str[:-2]
             artists_str = re.sub('\"', '\\\"', artists_str)
             songs_arr[i]['artists'] = artists_str
-        return render_template("results.html", songs_arr=songs_arr)
+
+            if i <1:
+                ytsearch = youtube.search(name + " - " + artists[0])
+                youtube_arr[i] = ytsearch
+            else:
+                youtube_arr[i] = ""
+        return render_template("results.html", songs_arr=songs_arr, youtube_arr=youtube_arr)
 
 @app.route('/api', methods=['POST'])
 def find_test():
@@ -75,6 +83,7 @@ if __name__ == "__main__":
     # Use reco.search_name(<title of song>) to return DataFrame with index, title of song and artists.
     # Use reco.find_neighbors(<index>, <duration>) to return DataFrame of song recommendations with all columns.
     reco = Recommender()
+    youtube = Youtube()
     from os import environ
-    app.run(debug=False, host='0.0.0.0', port=environ.get("PORT", 5000))
-    # app.run(debug=True, port=environ.get("PORT", 5000))
+    # app.run(debug=False, host='0.0.0.0', port=environ.get("PORT", 5000))
+    app.run(debug=True, port=environ.get("PORT", 5000))

@@ -19,7 +19,8 @@
       var minutes = (millisec / (1000 * 60)).toFixed(1);
       return minutes + " Min";
     }
-
+    var youtube_embeds = JSON.parse('{{ youtube_arr | tojson }}')
+    console.log(youtube_embeds)
     var songs = JSON.parse('{{ songs_arr | tojson }}')
     var i = 0
     var total_duration = 0
@@ -38,6 +39,17 @@
       var duration_elem = document.createTextNode(duration)
       var duration_div = document.createElement("div")
 
+      var youtube_div = document.createElement("div")
+      var youtube_embed = document.createElement('iframe')
+      if (youtube_embeds[i] != "") {
+        console.log(youtube_embeds[i])
+        youtube_embed.setAttribute('src', youtube_embeds[i])
+      }  else {
+        youtube_embed.setAttribute('src', "https://www.youtube.com/embed/tgbNymZ7vqY")
+      }
+      youtube_embed.setAttribute('height', "90")
+      youtube_embed.setAttribute('width', "160")
+
       total_duration += song['duration']
 
       name_div.appendChild(name_elem)
@@ -46,10 +58,13 @@
       artists_div.classList.add("artists_div")
       duration_div.appendChild(duration_elem)
       duration_div.classList.add("duration_div")
+      youtube_div.appendChild(youtube_embed)
+      youtube_div.classList.add("youtube_div")
 
       song_div.appendChild(name_div)
       song_div.appendChild(artists_div)
       song_div.appendChild(duration_div)
+      song_div.appendChild(youtube_div)
       song_div.classList.add("song_div")
 
       results_div.appendChild(song_div)

@@ -42,26 +42,32 @@ body {
     border-width: 1px;
     border-radius: 16px;
     border-style: solid;
-    height: 3em;
+    height: 7em;
     justify-content: center
 }
 
 .name_div {
     float: left;
-    width: 33%;
+    width: 25%;
     justify-content: center
 }
 
 .artists_div {
     float: left;
-    width: 33%;
+    width: 25%;
     justify-content: center
 }
 
 .duration_div {
     float: left;
-    width: 33%;
+    width: 25%;
     justify-content: center
+}
+
+.youtube_div {
+    float: left;
+    width: 25%;
+    justify-content: center;
 }
 
 
