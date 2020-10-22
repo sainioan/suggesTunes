@@ -4,7 +4,7 @@ import os
 
 class Youtube:
     def __init__(self):
-        DEVELOPER_KEY = os.getenv("API_KEY")
+        DEVELOPER_KEY = os.environ.get("API_KEY")
         YOUTUBE_API_SERVICE_NAME = 'youtube'
         YOUTUBE_API_VERSION = 'v3'
         self.youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,

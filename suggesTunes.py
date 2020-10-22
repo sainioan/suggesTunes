@@ -88,6 +88,6 @@ if __name__ == "__main__":
     reco = Recommender()
     youtube = Youtube()
     if 'DYNO' in environ:
-        app.run(debug=False, host='0.0.0.0', port=getenv("PORT", 5000))
+        app.run(debug=False, host='0.0.0.0', port=environ.get("PORT", 5000))
     else:
-        app.run(debug=True, port=getenv("PORT", 5000))
+        app.run(debug=True, port=environ.get("PORT", 5000))
