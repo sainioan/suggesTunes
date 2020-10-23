@@ -48,7 +48,11 @@ def search():
 
             try:
                 ytsearch = youtube.search(name + " - " + artists[0])
-                youtube_arr[i] = ytsearch
+                if ytsearch == []:
+                    print("Out of youtube quota.")
+                    youtube_arr[i] = ""
+                else:
+                    youtube_arr[i] = ytsearch
             except:
                 print("Out of youtube quota.")
                 youtube_arr[i] = ""

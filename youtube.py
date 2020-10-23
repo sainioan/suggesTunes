@@ -30,6 +30,6 @@ class Youtube:
                     videos.append('%s' % ("https://www.youtube.com/embed/" + search_result['id']['videoId']))
 
             return videos[0]
-        except HttpError as e:
-            print('An HTTP error %d occurred:\n%s' % (e.resp.status, e.content))
-        return []       
+        except:
+            return []
+               
