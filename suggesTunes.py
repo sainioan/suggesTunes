@@ -46,14 +46,11 @@ def search():
             artists_str = re.sub('\"', '\\\"', artists_str)
             songs_arr[i]['artists'] = artists_str
 
-            if i < 1:
-                try:
-                    ytsearch = youtube.search(name + " - " + artists[0])
-                    youtube_arr[i] = ytsearch
-                except:
-                    print("Out of youtube quota.")
-                    youtube_arr[i] = ""
-            else:
+            try:
+                ytsearch = youtube.search(name + " - " + artists[0])
+                youtube_arr[i] = ytsearch
+            except:
+                print("Out of youtube quota.")
                 youtube_arr[i] = ""
         return render_template("results.html", songs_arr=songs_arr, youtube_arr=youtube_arr)
 
