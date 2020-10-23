@@ -19,8 +19,10 @@ class Recommender:
 
         # Normalize values
         self.df_data['key'] = self.df_data['key'] / 12
-        max_loudness = self.df_data['loudness'].max()
-        self.df_data['loudness'] = abs(self.df_data['loudness'] / max_loudness)
+        min_loudness = df_data['loudness'].min()
+        df_data['loudness'] = df_data['loudness'] + abs(min_loudness)
+        max_loudness = df_data['loudness'].max()
+        df_data['loudness'] = df_data['loudness']/max_loudness
         max_tempo = self.df_data['tempo'].max()
         self.df_data['tempo'] = self.df_data['tempo'] / max_tempo
 
